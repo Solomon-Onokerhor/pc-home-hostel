@@ -48,7 +48,7 @@
     const n = PCH.nightsBetween(s.checkIn, s.checkOut), q = PCH.price(t, n, s.beds);
     quoteEl.classList.add('good');
     quoteEl.append(el('strong', null, PCH.available(t.id, s.checkIn, s.checkOut) + ' beds available'),
-      el('span', null, ' for ' + n + ' nights. '),
+      el('span', null, ' for ' + PCH.fmtDate(s.checkIn) + ' to ' + PCH.fmtDate(s.checkOut) + ' (' + n + ' nights). '),
       el('span', null, s.beds + ' bed' + (s.beds > 1 ? 's' : '') + ' × ' + PCH.money(q.perBed) + ' = '),
       el('strong', null, PCH.money(q.total)),
       el('span', null, ' (deposit ' + PCH.money(q.deposit) + ')'));
