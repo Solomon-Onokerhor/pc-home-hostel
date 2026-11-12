@@ -1,4 +1,4 @@
-# My Simple Website
+# PC Home Hostel website
 
 A static site (HTML, CSS, a little JS) ready for GitHub Pages.
 

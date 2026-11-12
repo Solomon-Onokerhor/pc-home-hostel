@@ -32,3 +32,8 @@ h2 { margin: 0 0 .75rem; }
 .card h3 { margin: 0 0 .4rem; }
 .card p { margin: 0; color: var(--muted); }
 .site-footer { padding-top: 2rem; padding-bottom: 2rem; color: var(--muted); border-top: 1px solid var(--card); margin-top: 2rem; }
+.price { margin-top: .6rem !important; font-weight: 600; color: var(--accent) !important; }
+a { color: var(--accent); }
+.button, .brand, nav a { color: inherit; }
+.button { color: #fff; }
+nav a { color: var(--muted); }
