@@ -25,6 +25,12 @@
   const validDate = s => /^\d{4}-\d{2}-\d{2}$/.test(s) && !isNaN(utc(s));
   const nightsBetween = (a, b) => Math.round((utc(b) - utc(a)) / 864e5);
   const addDays = (s, n) => { const d = new Date(utc(s) + n * 864e5); return d.getUTCFullYear() + '-' + pad(d.getUTCMonth() + 1) + '-' + pad(d.getUTCDate()); };
+  const addMonths = (s, n) => {
+    const [y, m, d] = s.split('-').map(Number);
+    const last = new Date(Date.UTC(y, m - 1 + n + 1, 0)).getUTCDate();
+    const t = new Date(Date.UTC(y, m - 1 + n, Math.min(d, last)));
+    return t.getUTCFullYear() + '-' + pad(t.getUTCMonth() + 1) + '-' + pad(t.getUTCDate());
+  };
   const fmtDate = s => new Date(utc(s)).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' });
   const money = n => 'GH₵ ' + Number(n).toLocaleString('en-GH');
 
@@ -121,7 +127,7 @@
   }
   function resetAll() { store.del(KEY_B); store.del(KEY_R); }
 
-  global.PCH = { MIN_NIGHTS, MAX_NIGHTS, DEPOSIT_RATE, today, addDays, nightsBetween, fmtDate, money, getRooms, saveRooms,
+  global.PCH = { MIN_NIGHTS, MAX_NIGHTS, DEPOSIT_RATE, today, addDays, addMonths, nightsBetween, fmtDate, money, getRooms, saveRooms,
     getBookings, capacity, bedsTaken, available, price, validateStay, addBooking, updateBooking, deleteBooking, findBooking,
     seedSample, resetAll, digits };
 })(window);

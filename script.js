@@ -17,8 +17,9 @@
     const c = el('article', 'card');
     c.append(el('h3', null, r.name), el('p', null, r.blurb),
       el('p', 'meta', r.occupancy + ' students per room'),
-      el('p', 'price', 'From ' + PCH.money(r.monthly) + ' / month per bed'),
-      el('p', 'meta', PCH.available(r.id, t0, t1) + ' beds free tonight'));
+      el('p', 'price', PCH.money(r.monthly * 4) + ' / semester'),
+      el('p', 'meta', 'per bed, about ' + PCH.money(r.monthly) + ' a month'),
+      el('p', 'pill', PCH.available(r.id, t0, t1) + ' beds free tonight'));
     const b = el('button', 'button', 'Book ' + r.name); b.type = 'button';
     b.addEventListener('click', () => { typeSel.value = r.id; syncBeds(); refreshQuote(); $('#book').scrollIntoView({ behavior: 'smooth' }); inEl.focus({ preventScroll: true }); });
     c.append(b);
@@ -37,6 +38,8 @@
   // ---------- Quote ----------
   function readStay() { return { typeId: typeSel.value, checkIn: inEl.value, checkOut: outEl.value, beds: parseInt(bedsEl.value, 10) }; }
   function refreshQuote() {
+    document.querySelectorAll('.chip').forEach(c => c.setAttribute('aria-pressed',
+      String(!!inEl.value && outEl.value === PCH.addMonths(inEl.value, +c.dataset.months))));
     const s = readStay(), t = current();
     quoteEl.className = 'quote'; quoteEl.replaceChildren();
     if (!s.checkIn || !s.checkOut) { quoteEl.textContent = 'Choose your dates to see availability and price.'; return null; }
@@ -59,6 +62,17 @@
     refreshQuote();
   });
   [outEl, bedsEl].forEach(e => e.addEventListener('input', refreshQuote));
+  document.querySelectorAll('.chip').forEach(c => c.addEventListener('click', () => {
+    if (!inEl.value) {
+      quoteEl.className = 'quote bad'; quoteEl.textContent = 'Pick your check-in date first, then choose a stay length.'; inEl.focus(); return;
+    }
+    outEl.value = PCH.addMonths(inEl.value, +c.dataset.months); refreshQuote();
+  }));
+  // Mobile "Book a bed" bar: hide it while the booking panel is on screen.
+  const sticky = $('#sticky');
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(es => { sticky.classList.toggle('hide', es[0].isIntersecting); }, { threshold: 0.05 }).observe($('#book'));
+  }
   typeSel.addEventListener('change', () => { syncBeds(); refreshQuote(); });
 
   // ---------- Steps ----------

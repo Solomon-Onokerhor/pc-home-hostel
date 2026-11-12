@@ -22,14 +22,32 @@
 
   <main id="top">
     <section class="hero">
-      <h1>A home away from home for students</h1>
-      <p>Student accommodation in Tarkwa, Western Region, Ghana. Choose a room for 2 or for 4 and book online in minutes.</p>
-      <a class="button" href="#book">Book a bed</a>
+      <p class="eyebrow">Student accommodation &middot; Tarkwa, Western Region</p>
+      <h1>Your bed near campus, booked in minutes</h1>
+      <p class="lead">Choose a room for 2 or for 4, see the full price up front, and secure your bed with a deposit.</p>
+      <div class="actions">
+        <a class="button" href="#book">Book a bed</a>
+        <a class="button ghost" href="#rooms">See prices</a>
+      </div>
+      <ul class="facts">
+        <li>2 or 4 students per room</li>
+        <li>Price shown up front</li>
+        <li>Deposit secures your bed</li>
+      </ul>
     </section>
 
     <section id="rooms">
       <h2>Room types</h2>
       <div class="cards" id="room-cards"></div>
+    </section>
+
+    <section id="how">
+      <h2>How booking works</h2>
+      <ol class="how">
+        <li><strong>Pick your bed</strong><span>Choose a room type and your dates. Availability and the full price appear straight away.</span></li>
+        <li><strong>Secure it</strong><span>Pay a 30% deposit by mobile money, or reserve now and pay on arrival.</span></li>
+        <li><strong>Get your reference</strong><span>Keep your booking reference. The hostel will contact you to confirm move-in details.</span></li>
+      </ol>
     </section>
 
     <section id="book" class="panel">
@@ -54,6 +72,11 @@
           <label>Check-out
             <input id="checkout" type="date" required>
           </label>
+        </div>
+        <div class="chips" role="group" aria-label="Quick stay length">
+          <span class="chips-label">Quick pick:</span>
+          <button type="button" class="chip" data-months="4" aria-pressed="false">1 semester (4 months)</button>
+          <button type="button" class="chip" data-months="8" aria-pressed="false">2 semesters (8 months)</button>
         </div>
         <div id="quote" class="quote" aria-live="polite">Choose your dates to see availability and price.</div>
         <button class="button" id="to-details" type="submit">Continue</button>
@@ -150,6 +173,7 @@
   <footer class="site-footer">
     <p>&copy; <span id="year"></span> PC Home Hostel &middot; <a href="admin.html">Manager login (demo)</a></p>
   </footer>
+  <a class="button sticky-cta" id="sticky" href="#book">Book a bed</a>
   <script src="store.js"></script>
   <script src="script.js"></script>
 </body>
