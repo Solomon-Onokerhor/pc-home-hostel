@@ -4,15 +4,18 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>PC Home Hostel | Student Accommodation in Tarkwa</title>
-  <meta name="description" content="PC Home Hostel offers student accommodation in Tarkwa, Western Region, Ghana, with rooms for 2 or 4 students.">
+  <meta name="description" content="Book a bed at PC Home Hostel, student accommodation in Tarkwa, Western Region, Ghana. Rooms for 2 or 4 students.">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div class="demo-banner" role="note">Demo version: prices and availability are sample data, and bookings are saved only in this browser.</div>
+
   <header class="site-header">
     <a class="brand" href="#top">PC Home Hostel</a>
-    <nav>
+    <nav aria-label="Main">
       <a href="#rooms">Rooms</a>
-      <a href="#about">About</a>
+      <a href="#book">Book</a>
+      <a href="#lookup">My booking</a>
       <a href="#contact">Contact</a>
     </nav>
   </header>
@@ -20,24 +23,116 @@
   <main id="top">
     <section class="hero">
       <h1>A home away from home for students</h1>
-      <p>Student accommodation in Tarkwa, Western Region, Ghana. Choose a room for 2 or for 4.</p>
-      <a class="button" href="#rooms">See room types</a>
+      <p>Student accommodation in Tarkwa, Western Region, Ghana. Choose a room for 2 or for 4 and book online in minutes.</p>
+      <a class="button" href="#book">Book a bed</a>
     </section>
 
     <section id="rooms">
       <h2>Room types</h2>
-      <div class="cards">
-        <article class="card">
-          <h3>2 in a room</h3>
-          <p>Share a room with one other student. A quieter option with more personal space.</p>
-          <p class="price">Price: contact us</p>
-        </article>
-        <article class="card">
-          <h3>4 in a room</h3>
-          <p>Share a room with three other students. The most affordable way to stay.</p>
-          <p class="price">Price: contact us</p>
-        </article>
+      <div class="cards" id="room-cards"></div>
+    </section>
+
+    <section id="book" class="panel">
+      <h2>Book your bed</h2>
+      <ol class="steps" id="steps" aria-label="Booking steps">
+        <li>Room &amp; dates</li><li>Your details</li><li>Review &amp; pay</li><li>Confirmed</li>
+      </ol>
+
+      <!-- Step 1 -->
+      <form id="step1" class="step" novalidate>
+        <div class="grid">
+          <label>Room type
+            <select id="type" required></select>
+          </label>
+          <label>Number of beds
+            <input id="beds" type="number" min="1" max="2" value="1" inputmode="numeric" required>
+            <small id="beds-help"></small>
+          </label>
+          <label>Check-in
+            <input id="checkin" type="date" required>
+          </label>
+          <label>Check-out
+            <input id="checkout" type="date" required>
+          </label>
+        </div>
+        <div id="quote" class="quote" aria-live="polite">Choose your dates to see availability and price.</div>
+        <button class="button" id="to-details" type="submit">Continue</button>
+      </form>
+
+      <!-- Step 2 -->
+      <form id="step2" class="step" hidden novalidate>
+        <div class="grid">
+          <label>Full name
+            <input id="name" type="text" autocomplete="name" required>
+          </label>
+          <label>Phone / WhatsApp
+            <input id="phone" type="tel" autocomplete="tel" placeholder="024 000 0000" required>
+          </label>
+          <label>Email
+            <input id="email" type="email" autocomplete="email" required>
+          </label>
+          <label>Notes (optional)
+            <input id="notes" type="text" maxlength="200" placeholder="Anything we should know?">
+          </label>
+        </div>
+        <p class="error" id="err2" role="alert"></p>
+        <div class="actions">
+          <button class="button ghost" type="button" data-back="1">Back</button>
+          <button class="button" type="submit">Continue</button>
+        </div>
+      </form>
+
+      <!-- Step 3 -->
+      <form id="step3" class="step" hidden novalidate>
+        <div id="review"></div>
+        <fieldset class="pay">
+          <legend>How would you like to secure your bed?</legend>
+          <label class="radio"><input type="radio" name="pay" value="now" checked> Pay the deposit now with mobile money (simulated)</label>
+          <label class="radio"><input type="radio" name="pay" value="later"> Reserve now and pay on arrival</label>
+          <div id="momo" class="grid">
+            <label>Network
+              <select id="network"><option>MTN MoMo</option><option>Telecel Cash</option><option>AirtelTigo Money</option></select>
+            </label>
+            <label>Mobile money number
+              <input id="momo-number" type="tel" placeholder="024 000 0000">
+            </label>
+          </div>
+        </fieldset>
+        <p class="error" id="err3" role="alert"></p>
+        <div class="actions">
+          <button class="button ghost" type="button" data-back="2">Back</button>
+          <button class="button" id="confirm" type="submit">Confirm booking</button>
+        </div>
+      </form>
+
+      <!-- Step 4 -->
+      <div id="step4" class="step" hidden>
+        <h3 id="done-title" tabindex="-1">Booking received</h3>
+        <p class="ref">Your reference: <strong id="done-ref"></strong></p>
+        <div id="done-summary"></div>
+        <p class="note">Keep your reference and phone number. You can look up or cancel your booking below.</p>
+        <div class="actions">
+          <button class="button" type="button" id="print">Print / save</button>
+          <button class="button ghost" type="button" id="again">Make another booking</button>
+        </div>
       </div>
+    </section>
+
+    <section id="lookup" class="panel">
+      <h2>Find my booking</h2>
+      <form id="lookup-form" novalidate>
+        <div class="grid">
+          <label>Booking reference
+            <input id="l-ref" type="text" placeholder="PCH-XXXXXX" autocapitalize="characters" required>
+          </label>
+          <label>Phone number used
+            <input id="l-phone" type="tel" required>
+          </label>
+        </div>
+        <button class="button" type="submit">Find booking</button>
+      </form>
+      <p class="error" id="l-err" role="alert"></p>
+      <div id="l-result"></div>
     </section>
 
     <section id="about">
@@ -46,15 +141,16 @@
     </section>
 
     <section id="contact">
-      <h2>Contact &amp; booking</h2>
-      <p>To book a room or ask about prices, please get in touch. Phone and WhatsApp details are coming soon.</p>
+      <h2>Contact</h2>
+      <p>Questions before you book? Phone and WhatsApp details are coming soon.</p>
       <p><a href="https://www.google.com/maps/search/?api=1&amp;query=PC+Home+Hostel+Tarkwa">Find us on Google Maps</a></p>
     </section>
   </main>
 
   <footer class="site-footer">
-    <p>&copy; <span id="year"></span> PC Home Hostel</p>
+    <p>&copy; <span id="year"></span> PC Home Hostel &middot; <a href="admin.html">Manager login (demo)</a></p>
   </footer>
+  <script src="store.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

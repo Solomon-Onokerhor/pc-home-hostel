@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Manager | PC Home Hostel</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="admin">
+  <div class="demo-banner" role="note">Demo manager page: there is no login in this demo. The real version would be password-protected. Data is stored only in this browser.</div>
+  <header class="site-header">
+    <a class="brand" href="index.html">PC Home Hostel</a>
+    <nav aria-label="Main"><a href="index.html">Back to website</a></nav>
+  </header>
+  <main>
+    <h1 class="admin-title">Bookings manager</h1>
+
+    <section id="stats" class="cards stats" aria-label="Summary"></section>
+
+    <section class="panel">
+      <h2>Bookings</h2>
+      <div class="toolbar">
+        <label>Status
+          <select id="f-status"><option value="">All</option><option value="pending">Pending</option><option value="confirmed">Confirmed</option><option value="cancelled">Cancelled</option></select>
+        </label>
+        <label>Search
+          <input id="f-q" type="search" placeholder="Name, phone or reference">
+        </label>
+        <button class="button ghost" id="export" type="button">Export CSV</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Ref</th><th>Guest</th><th>Room</th><th>Dates</th><th>Beds</th><th>Total</th><th>Deposit</th><th>Status</th><th>Actions</th></tr></thead>
+          <tbody id="rows"></tbody>
+        </table>
+      </div>
+      <p id="empty" class="note" hidden>No bookings yet. Add sample data below or make a booking on the website.</p>
+    </section>
+
+    <section class="panel">
+      <h2>Rooms &amp; prices</h2>
+      <form id="rooms-form" novalidate></form>
+      <p class="note">Changes apply to new bookings. Existing bookings keep the price they were made at.</p>
+      <p class="error" id="r-msg" role="status"></p>
+    </section>
+
+    <section class="panel">
+      <h2>Demo tools</h2>
+      <div class="actions">
+        <button class="button ghost" id="seed" type="button">Add sample bookings</button>
+        <button class="button danger" id="reset" type="button">Erase all demo data</button>
+      </div>
+    </section>
+  </main>
+  <script src="store.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>
