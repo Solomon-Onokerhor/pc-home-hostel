@@ -1,8 +1,8 @@
 /* PC Home Hostel: bold colour-block student look.
    Contrast checked: ink on orange 5.3:1, white on deep orange 5.6:1, white on green 6.4:1. */
 :root {
-  --ink: #1A1411; --cream: #FFF0CA; --orange: #FF431E; --green: #1F6B4F;
-  --bg: #F6F3EE; --fg: #1A1411; --muted: #5A514B; --surface: #FFFFFF; --line: #D9D1C7;
+  --ink: #1A1411; --cream: #FFF0CA; --orange: #FF431E; --green: #1F6B4F; --purple: #B98CFF; --amber: #FFB200;
+  --bg: #F4E9E1; --fg: #1A1411; --muted: #5A514B; --surface: #FFFFFF; --line: #D9D1C7;
   --link: #C2310F; --btn-bg: #1A1411; --btn-fg: #FFF0CA;
   --good: #166534; --good-bg: #DCFCE7; --bad: #991B1B; --bad-bg: #FEE2E2; --warn: #854D0E; --warn-bg: #FEF3C7;
   --display: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
@@ -39,23 +39,36 @@ h2 { margin: 0 0 1rem; font: 700 clamp(1.7rem, 4.5vw, 2.4rem)/1.1 var(--display)
 .button.ghost { background: transparent; color: var(--fg); border-color: var(--fg); }
 .button.danger { background: var(--bad-bg); color: var(--bad); border-color: var(--bad); }
 
-/* Hero: orange colour block, big serif type */
-.hero { background: var(--orange); color: var(--ink); border-radius: 28px; padding: clamp(2rem, 6vw, 4.5rem) clamp(1.25rem, 5vw, 3.5rem); margin-top: .5rem; }
-.eyebrow { margin: 0 0 1rem; font-size: .85rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
-.hero h1 { font: 700 clamp(2.6rem, 9vw, 6rem)/.98 var(--display); letter-spacing: -.02em; margin: 0 0 1.25rem; max-width: 14ch; }
-.hero .lead { font-size: clamp(1.05rem, 2.4vw, 1.3rem); margin: 0 0 1.75rem; max-width: 34rem; }
-.hero .button { --btn-bg: var(--ink); --btn-fg: var(--cream); }
-.hero .button.ghost { background: transparent; color: var(--ink); border-color: var(--ink); }
+/* Hero: big type with highlight pills + illustrated hostel */
+.hero { display: grid; grid-template-columns: 1.25fr .9fr; gap: clamp(1.5rem, 4vw, 3rem); align-items: center; padding: clamp(1.5rem, 5vw, 3.5rem) 0 2rem; }
+.eyebrow { margin: 0 0 1rem; font-size: .85rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.hero h1 { font: 700 clamp(2.7rem, 7.5vw, 5.6rem)/1.02 var(--display); letter-spacing: -.02em; margin: 0 0 1.25rem; }
+.hl { display: inline-block; color: var(--ink); padding: 0 .22em .06em; border-radius: .3em; line-height: 1.05; }
+.hl-orange { background: var(--orange); transform: rotate(-2deg); }
+.hl-purple { background: var(--purple); transform: rotate(1.5deg); }
+.hero .lead { font-size: clamp(1.05rem, 2.2vw, 1.25rem); color: var(--muted); margin: 0 0 1.75rem; max-width: 32rem; }
 .actions { display: flex; gap: .75rem; flex-wrap: wrap; }
 .facts { list-style: none; display: flex; flex-wrap: wrap; gap: .5rem; padding: 0; margin: 1.75rem 0 0; }
-.facts li { font-size: .9rem; font-weight: 600; padding: .3rem .85rem; border: 2px solid var(--ink); border-radius: 999px; }
+.facts li { font-size: .9rem; font-weight: 600; padding: .3rem .85rem; border: 2px solid var(--fg); border-radius: 999px; }
 .facts li::before { content: "\2713  "; font-weight: 800; }
+.hero-art { background: var(--orange); border-radius: 28px; padding: 1.75rem 1.5rem 1.25rem; transform: rotate(1.5deg); box-shadow: 8px 8px 0 var(--fg); }
+.hero-art svg { display: block; width: 100%; height: auto; }
+.art-tag { margin: .9rem 0 0; color: var(--ink); font-weight: 700; font-size: .9rem; text-align: center; }
+@media (max-width: 760px) { .hero { grid-template-columns: 1fr; } .hero-art { max-width: 340px; justify-self: center; transform: rotate(1deg); } }
+
+/* Marquee band */
+.marquee { background: var(--fg); color: var(--bg); overflow: hidden; border-radius: 999px; margin: 1rem 0 .5rem; }
+.marquee-track { display: flex; width: max-content; animation: marquee 32s linear infinite; }
+.marquee span { padding: .85rem 1.5rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; font-size: .9rem; white-space: nowrap; }
+.marquee span::after { content: "\2726"; margin-left: 3rem; }
+@keyframes marquee { to { transform: translateX(-50%); } }
 
 /* Room cards: colour blocks */
 .cards { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
 #room-cards .card { border-radius: 24px; padding: 1.5rem; display: flex; flex-direction: column; align-items: flex-start; gap: .35rem; min-height: 270px; }
 #room-cards .card:nth-child(odd) { background: var(--orange); color: var(--ink); --btn-bg: var(--ink); --btn-fg: var(--cream); }
 #room-cards .card:nth-child(even) { background: var(--green); color: #fff; --btn-bg: var(--cream); --btn-fg: var(--ink); }
+#room-cards .card .plan { width: 100%; max-width: 220px; height: auto; margin-bottom: .75rem; }
 #room-cards .card h3 { margin: 0; font: 700 clamp(1.6rem, 4vw, 2.1rem)/1.1 var(--display); }
 #room-cards .card p { margin: 0; }
 #room-cards .card .price { font: 700 clamp(2rem, 6vw, 2.8rem)/1.05 var(--display); margin-top: .75rem; }
@@ -69,8 +82,8 @@ h2 { margin: 0 0 1rem; font: 700 clamp(1.7rem, 4.5vw, 2.4rem)/1.1 var(--display)
 
 /* How it works */
 .how { list-style: none; counter-reset: h; display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); padding: 0; margin: 0; }
-.how li { counter-increment: h; background: var(--cream); color: var(--ink); border-radius: 20px; padding: 1.25rem; display: flex; flex-direction: column; gap: .35rem; }
-.how li::before { content: counter(h); width: 2.4rem; height: 2.4rem; display: grid; place-items: center; border-radius: 50%; background: var(--ink); color: var(--cream); font: 700 1.2rem var(--display); margin-bottom: .5rem; }
+.how li { counter-increment: h; background: var(--surface); border: 2px solid var(--fg); color: var(--fg); border-radius: 20px; padding: 1.25rem; display: flex; flex-direction: column; gap: .35rem; }
+.how li::before { content: "0" counter(h); font: 700 3.2rem/1 var(--display); color: var(--link); margin-bottom: .5rem; }
 .how strong { font: 700 1.25rem var(--display); }
 
 /* Panels, steps, forms */
@@ -107,6 +120,8 @@ label.radio input { width: 1.25rem; min-height: 0; height: 1.25rem; accent-color
 #about p, #contact p { max-width: 38rem; }
 .site-footer { padding-top: 1.5rem; padding-bottom: 6rem; color: var(--muted); border-top: 2px solid var(--line); margin-top: 2.5rem; }
 
+.wordmark { font: 700 clamp(4rem, 17vw, 12rem)/.9 var(--display); letter-spacing: -.03em; color: var(--fg); margin: 0 0 1rem; }
+
 /* Mobile "Book a bed" bar */
 .sticky-cta { display: none; }
 @media (max-width: 640px) {
@@ -141,5 +156,5 @@ th { color: var(--muted); font-weight: 700; white-space: nowrap; }
   tr { border: 2px solid var(--line); border-radius: 14px; margin-bottom: .75rem; padding: .4rem .7rem; background: var(--bg); }
   td { border: 0; padding: .25rem 0; } td::before { content: attr(data-label) ": "; color: var(--muted); font-weight: 700; }
 }
-@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .button, .sticky-cta { transition: none; } .button:hover { transform: none; box-shadow: none; } }
-@media print { .demo-banner, .site-header, .site-footer, .actions, #rooms, #how, #lookup, #about, #contact, .steps, .hero, .sticky-cta { display: none !important; } .panel { box-shadow: none; } }
+@media (prefers-reduced-motion: reduce) { .marquee-track { animation: none; } html { scroll-behavior: auto; } .button, .sticky-cta { transition: none; } .button:hover { transform: none; box-shadow: none; } }
+@media print { .demo-banner, .site-header, .site-footer, .actions, #rooms, #how, #lookup, .marquee, .wordmark, #about, #contact, .steps, .hero, .sticky-cta { display: none !important; } .panel { box-shadow: none; } }

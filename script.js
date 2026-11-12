@@ -10,11 +10,26 @@
   const quoteEl = $('#quote'), steps = [...document.querySelectorAll('#steps li')];
   let draft = null, details = null;
 
+  // Simple floor-plan drawing: shows how many beds share the room (no photos needed).
+  function floorPlan(n) {
+    const NS = 'http://www.w3.org/2000/svg', svg = document.createElementNS(NS, 'svg');
+    svg.setAttribute('viewBox', '0 0 200 110'); svg.setAttribute('class', 'plan'); svg.setAttribute('aria-hidden', 'true');
+    const add = (tag, a) => { const e = document.createElementNS(NS, tag); Object.entries(a).forEach(([k, v]) => e.setAttribute(k, v)); svg.append(e); };
+    add('rect', { x: 4, y: 4, width: 192, height: 102, rx: 10, fill: 'none', stroke: 'currentColor', 'stroke-width': 3 });
+    const bed = (x, y) => { add('rect', { x, y, width: 30, height: 52, rx: 5, fill: 'none', stroke: 'currentColor', 'stroke-width': 2.5 });
+      add('rect', { x: x + 6, y: y + 5, width: 18, height: 10, rx: 3, fill: 'currentColor' }); };
+    (n === 2 ? [[16, 14], [154, 14]] : [[16, 14], [54, 14], [116, 14], [154, 14]]).forEach(([x, y]) => bed(x, y));
+    add('rect', { x: 16, y: 80, width: 40, height: 14, rx: 3, fill: 'currentColor', opacity: .35 });
+    add('path', { d: 'M150 106 A 30 30 0 0 1 180 76', fill: 'none', stroke: 'currentColor', 'stroke-width': 2, 'stroke-dasharray': '4 4' });
+    return svg;
+  }
+
   // ---------- Room cards + type select ----------
   const t0 = PCH.today(), t1 = PCH.addDays(t0, 1);
   rooms.forEach(r => {
     typeSel.add(new Option(r.name + ' \u2013 ' + PCH.money(r.monthly) + '/mo', r.id));
     const c = el('article', 'card');
+    c.append(floorPlan(r.occupancy));
     c.append(el('h3', null, r.name), el('p', null, r.blurb),
       el('p', 'meta', r.occupancy + ' students per room'),
       el('p', 'price', PCH.money(r.monthly * 4) + ' / semester'),
