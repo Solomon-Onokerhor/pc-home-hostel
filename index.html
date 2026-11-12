@@ -74,12 +74,19 @@
     <section id="book" class="panel">
       <h2>Book your bed</h2>
       <ol class="steps" id="steps" aria-label="Booking steps">
-        <li>Room &amp; dates</li><li>Your details</li><li>Review &amp; pay</li><li>Confirmed</li>
+        <li>Room &amp; dates</li><li>Choose room</li><li>Your details</li><li>Review &amp; pay</li><li>Confirmed</li>
       </ol>
 
       <!-- Step 1 -->
       <form id="step1" class="step" novalidate>
         <div class="grid">
+          <label>I am booking for
+            <select id="gender" required>
+              <option value="">Choose...</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+            </select>
+          </label>
           <label>Room type
             <select id="type" required></select>
           </label>
@@ -103,6 +110,27 @@
         <button class="button" id="to-details" type="submit">Continue</button>
       </form>
 
+      <!-- Choose room -->
+      <form id="steproom" class="step" hidden novalidate>
+        <h3 id="room-title" tabindex="-1">Choose your room</h3>
+        <p class="note" id="room-intro"></p>
+        <p class="meta" id="room-sample" hidden>These are sample rooms for the demo. The manager loads the real room list.</p>
+        <div class="room-tools">
+          <label>Find a room number
+            <input id="room-search" type="search" placeholder="For example A104" autocomplete="off">
+          </label>
+          <button class="button ghost" type="button" id="any-room">Give me any available room</button>
+        </div>
+        <p class="note" id="room-note" role="status"></p>
+        <div id="room-grid" class="room-grid"></div>
+        <p class="picked" id="room-picked"></p>
+        <p class="error" id="err-room" role="alert"></p>
+        <div class="actions">
+          <button class="button ghost" type="button" data-back="1">Back</button>
+          <button class="button" id="room-continue" type="submit" disabled>Continue</button>
+        </div>
+      </form>
+
       <!-- Step 2 -->
       <form id="step2" class="step" hidden novalidate>
         <div class="grid">
@@ -121,7 +149,7 @@
         </div>
         <p class="error" id="err2" role="alert"></p>
         <div class="actions">
-          <button class="button ghost" type="button" data-back="1">Back</button>
+          <button class="button ghost" type="button" data-back="2">Back</button>
           <button class="button" type="submit">Continue</button>
         </div>
       </form>
@@ -144,7 +172,7 @@
         </fieldset>
         <p class="error" id="err3" role="alert"></p>
         <div class="actions">
-          <button class="button ghost" type="button" data-back="2">Back</button>
+          <button class="button ghost" type="button" data-back="3">Back</button>
           <button class="button" id="confirm" type="submit">Confirm booking</button>
         </div>
       </form>

@@ -158,3 +158,22 @@ th { color: var(--muted); font-weight: 700; white-space: nowrap; }
 }
 @media (prefers-reduced-motion: reduce) { .marquee-track { animation: none; } html { scroll-behavior: auto; } .button, .sticky-cta { transition: none; } .button:hover { transform: none; box-shadow: none; } }
 @media print { .demo-banner, .site-header, .site-footer, .actions, #rooms, #how, #lookup, .marquee, .wordmark, #about, #contact, .steps, .hero, .sticky-cta { display: none !important; } .panel { box-shadow: none; } }
+
+/* Room picker */
+#room-title { margin: 0 0 .25rem; font: 700 1.5rem var(--display); }
+.room-tools { display: flex; gap: 1rem; align-items: flex-end; flex-wrap: wrap; margin: 1rem 0 .5rem; }
+.room-tools label { flex: 1 1 220px; }
+.room-grid { display: grid; gap: 1.25rem; margin: 1rem 0; }
+.floor h4 { margin: 0 0 .5rem; font: 700 1rem var(--body); color: var(--muted); letter-spacing: .04em; text-transform: uppercase; }
+.room-row { display: grid; gap: .6rem; grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); }
+.room-tile { display: flex; flex-direction: column; align-items: flex-start; gap: .1rem; min-height: 64px; padding: .6rem .75rem; border: 2px solid var(--fg); border-radius: 14px; background: var(--bg); color: var(--fg); font: inherit; cursor: pointer; text-align: left; }
+.room-tile strong { font: 700 1.1rem var(--display); }
+.room-tile span { font-size: .85rem; color: var(--muted); }
+.room-tile:hover:not(:disabled) { background: var(--cream); color: var(--ink); border-color: var(--ink); }
+.room-tile:hover:not(:disabled) span { color: var(--ink); }
+.room-tile[aria-pressed="true"] { background: var(--btn-bg); color: var(--btn-fg); border-color: var(--btn-bg); }
+.room-tile[aria-pressed="true"] span { color: var(--btn-fg); }
+.room-tile:disabled { border-style: dashed; border-color: var(--line); cursor: not-allowed; opacity: .75; }
+.picked { margin: 0 0 .5rem; font-weight: 700; }
+textarea { font: 14px/1.5 ui-monospace, Menlo, Consolas, monospace; padding: .75rem; border: 2px solid var(--line); border-radius: 12px; background: var(--bg); color: var(--fg); width: 100%; resize: vertical; }
+select.mini { max-width: 11rem; }

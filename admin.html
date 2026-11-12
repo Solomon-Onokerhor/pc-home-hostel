@@ -31,17 +31,30 @@
       </div>
       <div class="table-wrap">
         <table>
-          <thead><tr><th>Ref</th><th>Guest</th><th>Room</th><th>Dates</th><th>Beds</th><th>Total</th><th>Deposit</th><th>Status</th><th>Actions</th></tr></thead>
+          <thead><tr><th>Ref</th><th>Guest</th><th>Type</th><th>Room</th><th>Dates</th><th>Beds</th><th>Total</th><th>Deposit</th><th>Status</th><th>Actions</th></tr></thead>
           <tbody id="rows"></tbody>
         </table>
       </div>
+      <p id="move-msg" class="note" role="status"></p>
       <p id="empty" class="note" hidden>No bookings yet. Add sample data below or make a booking on the website.</p>
     </section>
 
     <section class="panel">
-      <h2>Rooms &amp; prices</h2>
+      <h2>Room list</h2>
+      <p id="rl-status" class="note"></p>
+      <label for="room-csv">One room per line: number, floor, beds (2 or 4), gender (male or female)</label>
+      <textarea id="room-csv" rows="10" spellcheck="false"></textarea>
+      <div class="actions">
+        <button class="button" id="rl-apply" type="button">Save room list</button>
+        <button class="button ghost" id="rl-reset" type="button">Back to sample rooms</button>
+      </div>
+      <p id="rl-msg" class="note" role="status"></p>
+    </section>
+
+    <section class="panel">
+      <h2>Prices</h2>
       <form id="rooms-form" novalidate></form>
-      <p class="note">Changes apply to new bookings. Existing bookings keep the price they were made at.</p>
+      <p class="note">Changes apply to new bookings. Existing bookings keep the price they were made at. Room counts come from the room list above.</p>
       <p class="error" id="r-msg" role="status"></p>
     </section>
 
